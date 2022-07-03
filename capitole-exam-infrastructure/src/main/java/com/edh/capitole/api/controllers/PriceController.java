@@ -1,16 +1,16 @@
 package com.edh.capitole.api.controllers;
 
+import com.edh.capitole.api.dtos.ErrorDto;
 import com.edh.capitole.api.dtos.PriceRateDto;
+import com.edh.capitole.business.domain.PriceRateBo;
+import com.edh.capitole.business.exception.NoSuchPriceException;
 import com.edh.capitole.business.usecases.FindPriceRateAtDayUseCase;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebInputException;
 import reactor.core.publisher.Mono;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -28,8 +28,27 @@ public class PriceController {
                                        @RequestParam Long productId,
                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                        @RequestParam LocalDateTime date) {
-        return findPriceRateAtDayUseCase.execute(productId, brandId, date)
-                .map(it -> new PriceRateDto(it.getProductId(), it.getBrandId(), it.getRateId(), it.getStartDate(), it.getEndDate(), it.getPrice()));
+        return findPriceRateAtDayUseCase
+                .execute(productId, brandId, date)
+                .map(this::mapPriceRateBoToPriceRateDto);
+    }
+
+    private PriceRateDto mapPriceRateBoToPriceRateDto(PriceRateBo priceRateBo) {
+        return new PriceRateDto(priceRateBo.getProductId(), priceRateBo.getBrandId(), priceRateBo.getRateId(),
+                priceRateBo.getStartDate(), priceRateBo.getEndDate(), priceRateBo.getPrice());
+    }
+
+
+    @ExceptionHandler(ServerWebInputException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto handleException(ServerWebInputException e) {
+        return new ErrorDto(HttpStatus.BAD_REQUEST.name(), e.getReason());
+    }
+
+    @ExceptionHandler(NoSuchPriceException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorDto handleException(NoSuchPriceException e) {
+        return new ErrorDto(HttpStatus.NOT_FOUND.name());
     }
 
 }
