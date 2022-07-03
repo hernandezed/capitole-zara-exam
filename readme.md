@@ -59,7 +59,7 @@ La explicacion sobre cada modulo, puede verse en la imagen que acompaña esta se
 
 Para mas informacion sobre arquitectura limpia: https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
-![modules](https://github.com/hernandezed/capitole-exam/blob/master/docs/modules.png)
+![modules](https://github.com/hernandezed/capitole-zara-exam/blob/master/docs/modules.png)
 
 ## Jacoco
 Se cuentan con reportes de coverage de Jacoco. Los mismos excluyen clases que no tiene sentido aporten al coverage (Clases con solo setters y getters o configuracion). Se debe ejecutar
