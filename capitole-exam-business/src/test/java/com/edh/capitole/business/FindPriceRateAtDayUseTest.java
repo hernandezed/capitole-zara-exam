@@ -23,11 +23,11 @@ public class FindPriceRateAtDayUseTest {
 
     @Test
     void execute_whenExistsRate_returnPriceRateCallingPort() {
-        BigInteger brandId = BigInteger.ONE;
-        BigInteger productId = BigInteger.TWO;
+        Long brandId = 1L;
+        Long productId = 2L;
         LocalDateTime date = LocalDateTime.now();
 
-        PriceRateBo expected = new PriceRateBo(productId, brandId, BigInteger.ONE, date.minus(2, ChronoUnit.DAYS), date.plus(2, ChronoUnit.DAYS), new BigDecimal(20));
+        PriceRateBo expected = new PriceRateBo(productId, brandId, 1L, date.minus(2, ChronoUnit.DAYS), date.plus(2, ChronoUnit.DAYS), new BigDecimal(20));
 
         when(pricePort.findByBrandIdAndProductIdAndDate(brandId, productId, date))
                 .thenReturn(Mono.just(expected));
@@ -42,8 +42,8 @@ public class FindPriceRateAtDayUseTest {
 
     @Test
     void execute_whenNotExistsRate_throwExceptionCallingPort() {
-        BigInteger brandId = BigInteger.TWO;
-        BigInteger productId = BigInteger.ONE;
+        Long brandId = 2L;
+        Long productId = 1L;
         LocalDateTime date = LocalDateTime.now();
 
         when(pricePort.findByBrandIdAndProductIdAndDate(brandId, productId, date))

@@ -7,5 +7,5 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public interface PricePort {
-    Mono<PriceRateBo> findByBrandIdAndProductIdAndDate(BigInteger brandId, BigInteger productId, LocalDateTime date);
+    Mono<PriceRateBo> findByBrandIdAndProductIdAndDate(Long brandId, Long productId, LocalDateTime date);
 }

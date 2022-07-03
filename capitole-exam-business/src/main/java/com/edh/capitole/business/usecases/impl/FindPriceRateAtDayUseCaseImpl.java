@@ -18,7 +18,7 @@ public class FindPriceRateAtDayUseCaseImpl implements FindPriceRateAtDayUseCase 
     }
 
     @Override
-    public Mono<PriceRateBo> execute(BigInteger productId, BigInteger brandId, LocalDateTime date) {
+    public Mono<PriceRateBo> execute(Long productId, Long brandId, LocalDateTime date) {
         return pricePort.findByBrandIdAndProductIdAndDate(brandId, productId, date)
                 .switchIfEmpty(Mono.error(new NoSuchPriceException()));
     }
