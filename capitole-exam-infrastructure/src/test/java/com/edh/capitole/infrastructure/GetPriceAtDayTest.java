@@ -1,5 +1,6 @@
 package com.edh.capitole.infrastructure;
 
+import com.edh.capitole.infrastructure.harness.ResponseReader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
@@ -31,7 +33,7 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
     }
 
     @Test
-    void doGet_withoutBrandId_returnHttpStatus400() {
+    void doGet_withoutBrandId_returnHttpStatus400() throws IOException {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/prices")
                         .queryParam("productId", 1L)
@@ -39,11 +41,11 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
                         .build())
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
-                .expectBody().json("{\"code\": \"BAD_REQUEST\", \"message\": \"Required Long parameter 'brandId' is not present\"}");
+                .expectBody().json(ResponseReader.readJsonResponse("doGet_BAD_REQUEST_missingBrandId"));
     }
 
     @Test
-    void doGet_withoutProductId_returnHttpStatus400() {
+    void doGet_withoutProductId_returnHttpStatus400() throws IOException {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/prices")
                         .queryParam("brandId", 1L)
@@ -51,11 +53,11 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
                         .build())
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
-                .expectBody().json("{\"code\": \"BAD_REQUEST\", \"message\": \"Required Long parameter 'productId' is not present\"}");
+                .expectBody().json(ResponseReader.readJsonResponse("doGet_BAD_REQUEST_missingProductId"));
     }
 
     @Test
-    void doGet_withoutDate_returnHttpStatus400() {
+    void doGet_withoutDate_returnHttpStatus400() throws IOException {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/prices")
                         .queryParam("brandId", 1L)
@@ -63,11 +65,11 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
                         .build())
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
-                .expectBody().json("{\"code\": \"BAD_REQUEST\", \"message\": \"Required LocalDateTime parameter 'date' is not present\"}");
+                .expectBody().json(ResponseReader.readJsonResponse("doGet_BAD_REQUEST_missingDate"));
     }
 
     @Test
-    void doGet_whenProductNotExists_returnHttpStatus404() {
+    void doGet_whenProductNotExists_returnHttpStatus404() throws IOException {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/prices")
                         .queryParam("brandId", 1L)
@@ -89,16 +91,16 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
                         .build())
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND)
-                .expectBody().json("{\"code\": \"NOT_FOUND\"}");
+                .expectBody().json(ResponseReader.readJsonResponse("doGet_NOT_FOUND"));
     }
 
-    private static Stream<Arguments> getAllParams() {
+    private static Stream<Arguments> getAllParams() throws IOException {
         return Stream.of(
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 10, 0), "{\"productId\":35455,\"brandId\":1,\"startDate\":\"2020-06-14T00:00:00\",\"endDate\":\"2020-12-31T23:59:59\",\"price\":30.50}"),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 16, 0), "{\"productId\":35455,\"brandId\":1,\"startDate\":\"2020-06-14T15:00:00\",\"endDate\":\"2020-06-14T18:30:00\",\"price\":24.4}"),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 21, 0), "{\"productId\":35455,\"brandId\":1,\"startDate\":\"2020-06-14T00:00:00\",\"endDate\":\"2020-12-31T23:59:59\",\"price\":30.50}"),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 15, 10, 0), "{\"productId\":35455,\"brandId\":1,\"startDate\":\"2020-06-15T00:00:00\",\"endDate\":\"2020-06-15T11:00:00\",\"price\":30.50}"),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 16, 21, 0), "{\"productId\":35455,\"brandId\":1,\"startDate\":\"2020-06-15T16:00:00\",\"endDate\":\"2020-12-31T23:59:59\",\"price\":39.65}")
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 10, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T10:00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 16, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T16:00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 21, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T21:00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 15, 10, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-15T10:00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 16, 21, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-15T16:00"))
         );
     }
 }

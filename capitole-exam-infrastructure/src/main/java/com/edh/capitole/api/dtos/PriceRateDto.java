@@ -1,7 +1,6 @@
 package com.edh.capitole.api.dtos;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class PriceRateDto {

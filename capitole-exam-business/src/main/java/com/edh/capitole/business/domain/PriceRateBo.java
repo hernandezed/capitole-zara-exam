@@ -3,7 +3,6 @@ package com.edh.capitole.business.domain;
 import com.edh.capitole.business.exception.NotApplicableRateException;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class PriceRateBo {

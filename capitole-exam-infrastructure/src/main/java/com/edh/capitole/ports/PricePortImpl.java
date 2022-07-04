@@ -2,6 +2,7 @@ package com.edh.capitole.ports;
 
 import com.edh.capitole.business.domain.PriceRateBo;
 import com.edh.capitole.business.ports.PricePort;
+import com.edh.capitole.data_access.entities.Price;
 import com.edh.capitole.data_access.repositories.PriceRepository;
 import com.edh.capitole.data_access.repositories.ProductRepository;
 import org.springframework.stereotype.Component;

@@ -1,0 +1,4 @@
+{
+  "code": "BAD_REQUEST",
+  "message": "Required Long parameter 'brandId' is not present"
+}
