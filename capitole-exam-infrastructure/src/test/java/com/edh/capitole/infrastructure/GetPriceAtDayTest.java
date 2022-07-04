@@ -72,6 +72,19 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
                 .uri(uriBuilder -> uriBuilder.path("/prices")
                         .queryParam("brandId", 1L)
                         .queryParam("productId", 50L)
+                        .queryParam("date", LocalDateTime.of(2020, 6, 14, 10, 0))
+                        .build())
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND)
+                .expectBody().json("{\"code\": \"NOT_FOUND\"}");
+    }
+
+    @Test
+    void doGet_whenRateNotExists_returnHttpStatus404() {
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/prices")
+                        .queryParam("brandId", 1L)
+                        .queryParam("productId", 35455L)
                         .queryParam("date", LocalDateTime.now())
                         .build())
                 .exchange()
