@@ -94,10 +94,11 @@ Se cuentan con reportes de coverage de Jacoco. Los mismos excluyen clases que no
 ```
 mvn clean verify
 ```
-Los mismos se encuentran en /target/size/index.html
+Los mismos se encuentran en
 ```
 /target/size/index.html
 ```
+De cada submodulo
 
 ## Swagger
 La aplicación disponibiliza (mediante Spring docs) una vista para acceder a la documentación de swagger generada.
