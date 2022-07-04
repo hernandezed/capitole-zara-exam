@@ -78,11 +78,11 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
                         .build())
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND)
-                .expectBody().json("{\"code\": \"NOT_FOUND\"}");
+                .expectBody().json(ResponseReader.readJsonResponse("doGet_NOT_FOUND"));
     }
 
     @Test
-    void doGet_whenRateNotExists_returnHttpStatus404() {
+    void doGet_whenRateNotExists_returnHttpStatus404() throws IOException {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/prices")
                         .queryParam("brandId", 1L)
