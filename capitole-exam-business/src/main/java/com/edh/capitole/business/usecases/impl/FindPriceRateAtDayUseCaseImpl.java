@@ -6,7 +6,6 @@ import com.edh.capitole.business.ports.PricePort;
 import com.edh.capitole.business.usecases.FindPriceRateAtDayUseCase;
 import reactor.core.publisher.Mono;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class FindPriceRateAtDayUseCaseImpl implements FindPriceRateAtDayUseCase {
