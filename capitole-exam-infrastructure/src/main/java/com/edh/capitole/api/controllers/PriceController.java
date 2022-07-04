@@ -34,8 +34,8 @@ public class PriceController {
     }
 
     private PriceRateDto mapPriceRateBoToPriceRateDto(PriceRateBo priceRateBo) {
-        return new PriceRateDto(priceRateBo.getProductId(), priceRateBo.getBrandId(), priceRateBo.getRateId(),
-                priceRateBo.getStartDate(), priceRateBo.getEndDate(), priceRateBo.getPrice());
+        return new PriceRateDto(priceRateBo.getProductId(), priceRateBo.getBrandId(),
+                priceRateBo.getStartDate(), priceRateBo.getEndDate(), priceRateBo.getFinalPrice());
     }
 
 

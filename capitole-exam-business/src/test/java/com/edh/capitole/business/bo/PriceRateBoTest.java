@@ -16,7 +16,7 @@ public class PriceRateBoTest {
     @Test
     void getFinalPrice_whenApplyRate_thenReturnPriceAppliedRate() {
         RateBo rateBo = new RateBo(new BigDecimal("1.5"), LocalDateTime.now(), LocalDateTime.now());
-        PriceRateBo priceRateBo = new PriceRateBo(1L, 1L, BigDecimal.TEN);
+        PriceRateBo priceRateBo = new PriceRateBo(1l, 1L, 1L, BigDecimal.TEN);
         priceRateBo.applyRate(rateBo);
 
         assertThat(priceRateBo.getFinalPrice()).isEqualTo(new BigDecimal("15.0"));
@@ -24,7 +24,7 @@ public class PriceRateBoTest {
 
     @Test
     void getFinalPrice_whenNotApplyRate_thenThrowException() {
-        PriceRateBo priceRateBo = new PriceRateBo(1L, 1L, BigDecimal.TEN);
+        PriceRateBo priceRateBo = new PriceRateBo(1l, 1L, 1L, BigDecimal.TEN);
         assertThatThrownBy(priceRateBo::getFinalPrice).isInstanceOf(NotApplicableRateException.class);
     }
 }

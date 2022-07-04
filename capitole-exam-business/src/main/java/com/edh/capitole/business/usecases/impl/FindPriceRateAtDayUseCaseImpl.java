@@ -22,11 +22,11 @@ public class FindPriceRateAtDayUseCaseImpl implements FindPriceRateAtDayUseCase 
 
     @Override
     public Mono<PriceRateBo> execute(Long productId, Long brandId, LocalDateTime date) {
-        return ratePort.findAllByBrandIdAndProductIdAndDate(brandId, productId, date)
-                .zipWith(pricePort.findByBrandIdAndProductId(brandId, productId))
+        return pricePort.findByBrandIdAndProductId(brandId, productId)
+                .zipWhen(priceRateBo -> ratePort.findAllByPriceIdAndDate(priceRateBo.getPriceId(), date))
                 .map((t) -> {
-                    t.getT2().applyRate(t.getT1());
-                    return t.getT2();
+                    t.getT1().applyRate(t.getT2());
+                    return t.getT1();
                 })
                 .switchIfEmpty(Mono.error(new NoSuchPriceException()));
     }

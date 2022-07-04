@@ -7,5 +7,5 @@ import java.time.LocalDateTime;
 
 public interface RatePort {
 
-    Mono<RateBo> findAllByBrandIdAndProductIdAndDate(Long brandId, Long productId, LocalDateTime date);
+    Mono<RateBo> findAllByPriceIdAndDate(Long priceId, LocalDateTime date);
 }
