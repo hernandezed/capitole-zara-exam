@@ -10,9 +10,6 @@
     <artifactId>capitole-exam-infrastructure</artifactId>
     <name>capitole-exam-infrastructure</name>
     <description>capitole-exam-infrastructure</description>
-    <properties>
-        <java.version>18</java.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

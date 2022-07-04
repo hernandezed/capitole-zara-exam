@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
     <description>capitole-exam</description>
     <properties>
-        <java.version>18</java.version>
+        <java.version>17</java.version>
     </properties>
     <modules>
         <module>capitole-exam-business</module>

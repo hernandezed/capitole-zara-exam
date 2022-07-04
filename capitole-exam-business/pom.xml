@@ -11,9 +11,6 @@
     <artifactId>capitole-exam-business</artifactId>
     <name>capitole-exam-business</name>
     <description>capitole-exam-business</description>
-    <properties>
-        <java.version>18</java.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
