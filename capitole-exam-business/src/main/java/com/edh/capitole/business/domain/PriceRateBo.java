@@ -1,5 +1,7 @@
 package com.edh.capitole.business.domain;
 
+import com.edh.capitole.business.exception.NotApplicableRateException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -8,17 +10,13 @@ public class PriceRateBo {
 
     private final Long productId;
     private final Long brandId;
-    private final Long rateId;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private RateBo rate;
     private final BigDecimal price;
 
-    public PriceRateBo(Long productId, Long brandId, Long rateId, LocalDateTime startDate, LocalDateTime endDate, BigDecimal price) {
+    public PriceRateBo(Long productId, Long brandId, BigDecimal price) {
         this.productId = productId;
         this.brandId = brandId;
-        this.rateId = rateId;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.rate = rate;
         this.price = price;
     }
 
@@ -30,19 +28,18 @@ public class PriceRateBo {
         return brandId;
     }
 
-    public Long getRateId() {
-        return rateId;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public BigDecimal getFinalPrice() {
+        if (rate == null) {
+            throw new NotApplicableRateException();
+        }
+        return rate.apply(price);
+    }
+
+    public void applyRate(RateBo rate) {
+        this.rate = rate;
     }
 }
