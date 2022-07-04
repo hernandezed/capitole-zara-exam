@@ -89,6 +89,8 @@ Por:
 ```
 Otra consideracion es que por limitaciones de R2DBC, no es posible utilizar JPQL/HQL en @Query
 
+Por ultimo, cabe tener en cuenta que los scripts schema.sql y data.sql viven dentro de main/resources por la necesidad de precargar la base de datos en cualquier caso, sea Test o "Produccion"
+
 ## Jacoco
 Se cuentan con reportes de coverage de Jacoco. Los mismos excluyen clases que no tiene sentido aporten al coverage (Clases con solo setters y getters o configuracion). Se debe ejecutar
 ```
