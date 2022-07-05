@@ -83,11 +83,11 @@ public class GetPriceAtDayTest extends CapitoleExamInfrastructureApplicationTest
 
     private static Stream<Arguments> getAllParams() throws IOException {
         return Stream.of(
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 10, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T10:00")),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 16, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T16:00")),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 21, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T21:00")),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 15, 10, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-15T10:00")),
-                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 16, 21, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-15T16:00"))
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 10, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T10-00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 16, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T16-00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 14, 21, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-14T21-00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 15, 10, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-15T10-00")),
+                Arguments.arguments(1L, 35455L, LocalDateTime.of(2020, 6, 16, 21, 0), ResponseReader.readJsonResponse("doGet_brandId=1AndproductId=35455AndDate=2020-6-15T16-00"))
         );
     }
 }
